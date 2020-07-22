@@ -13,7 +13,7 @@ namespace MagicAndAlchemy.NPCs
 		private float animationSpeed = 10f;
 		private float acceleration = 0.1f;
 		private int walkAnimationFramesCount = 3;
-		
+
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Gargoyle");
 			Main.npcFrameCount[npc.type] = 4;
