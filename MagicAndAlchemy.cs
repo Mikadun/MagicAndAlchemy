@@ -10,19 +10,25 @@ namespace MagicAndAlchemy
 	public class MagicAndAlchemy : Mod
 	{
 		internal MenuBar MenuBar;
-		private UserInterface _menuBar;
+		private UserInterface alchemyInterface;
+		private GameTime _lastUpdateUiGameTime;
 
 		public override void Load()
 		{
-			MenuBar = new MenuBar();
-			MenuBar.Activate();
-			_menuBar = new UserInterface();
-			_menuBar.SetState(MenuBar);
+			if (!Main.dedServ) {
+				MenuBar = new MenuBar();
+				MenuBar.Activate();
+				alchemyInterface = new UserInterface();
+				alchemyInterface.SetState(MenuBar);
+			}
 		}
 
 		public override void UpdateUI(GameTime gameTime)
 		{
-			_menuBar?.Update(gameTime);
+			_lastUpdateUiGameTime = gameTime;
+			if (alchemyInterface?.CurrentState != null) {
+				alchemyInterface.Update(gameTime);
+			}
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -31,10 +37,12 @@ namespace MagicAndAlchemy
 			if (mouseTextIndex != -1)
 			{
 				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-					"MagicAndAlchemy: Alchemy crafting interface",
+					"MagicAndAlchemy: alchemyInterface",
 					delegate
 					{
-						_menuBar.Draw(Main.spriteBatch, new GameTime());
+						if (_lastUpdateUiGameTime != null && alchemyInterface?.CurrentState != null) {
+							alchemyInterface.Draw(Main.spriteBatch, new GameTime());
+						}
 						return true;
 					},
 					InterfaceScaleType.UI)

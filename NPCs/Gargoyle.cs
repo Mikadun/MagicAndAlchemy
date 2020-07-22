@@ -10,7 +10,7 @@ namespace MagicAndAlchemy.NPCs
 	public class Gargoyle : ModNPC
 	{
 		private float speed = 1.5f;
-		private float animationSpeed = 10f;
+		private float animationDelay = 10f;
 		private float acceleration = 0.1f;
 		private int walkAnimationFramesCount = 3;
 
@@ -49,8 +49,9 @@ namespace MagicAndAlchemy.NPCs
 		}
 		*/
 
+		// Behavior of NPC
 		public override void AI() {
-			npc.TargetClosest(false);
+			npc.TargetClosest(false); // Target closest player
 			if (npc.HasValidTarget && Main.player[npc.target].Distance(npc.Center) < 150f) {
 				npc.ai[0] = 1;
 				npc.TargetClosest(true);
@@ -65,6 +66,7 @@ namespace MagicAndAlchemy.NPCs
 			}
 		}
 
+		// Animation for sprite
 		public override void FindFrame(int frameHeight) {
 			npc.spriteDirection = npc.direction;
 			npc.frameCounter++;
@@ -72,17 +74,16 @@ namespace MagicAndAlchemy.NPCs
 				npc.frame.Y = 0 * frameHeight;
 			}
 			else if (npc.ai[0] == 1) {
-				if (npc.frameCounter < animationSpeed) {
+				if (npc.frameCounter < animationDelay) {
 					npc.frame.Y = 1 * frameHeight;
-				} else if (npc.frameCounter < 2 * animationSpeed) {
+				} else if (npc.frameCounter < 2 * animationDelay) {
 					npc.frame.Y = 2 * frameHeight;
 				} else {
 					npc.frame.Y = 3 * frameHeight;
 				}
-				//npc.frame.Y = (int)(walkAnimationFramesCount * animationSpeed / npc.frameCounter) * frameHeight;
 			}
 
-			if (npc.frameCounter > walkAnimationFramesCount * animationSpeed) {
+			if (npc.frameCounter > walkAnimationFramesCount * animationDelay) {
 				npc.frameCounter = 0f;
 			}
 		}

@@ -75,9 +75,9 @@ namespace MagicAndAlchemy.UI
                 position += this.parent.position;
             }
             this.rectangle = new Rectangle((int)position.X, (int)position.Y, (int)this.size.X, (int)this.size.Y); 
-            Main.player[Main.myPlayer].mouseInterface = true;
             if (new Rectangle(Main.mouseX, Main.mouseY, 1, 1).Intersects(this.rectangle))
             {
+                Main.player[Main.myPlayer].mouseInterface = true;
                 if (this.conditions != null)
                 {
                     if (this.conditions(Main.mouseItem))
@@ -103,7 +103,7 @@ namespace MagicAndAlchemy.UI
                 }
                 else
                 {
-                    sb.Draw(Main.inventoryBackTexture, this.rectangle, Color.Black); //Draws as default texture.
+                    sb.Draw(Main.inventoryBackTexture, this.rectangle, Color.White); //Draws as default texture.
                 }
             }
             if (this.item.type > 0)

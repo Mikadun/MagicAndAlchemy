@@ -13,7 +13,7 @@ namespace MagicAndAlchemy.UI
         public override void OnInitialize()
         {
             playButton = new PlayButton();
-            itemSlot = new UIItemSlot(new Vector2(Main.screenWidth + 50, Main.screenHeight + 50) / 2f);
+            itemSlot = new UIItemSlot(new Vector2(Main.screenWidth + 50, Main.screenHeight + 50) / 2f, null, null, null, null, null, false, 1);
             //Append(playButton);
             Append(itemSlot);
         }

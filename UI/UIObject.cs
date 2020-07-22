@@ -38,12 +38,5 @@ namespace MagicAndAlchemy.UI
                 this.parent = parent;
             }
         }
-        public virtual void Draw(SpriteBatch sb)
-        {
-            foreach(UIObject obj in this.children)
-            {
-                obj.Draw(sb);
-            }
-        }
     }
 }
