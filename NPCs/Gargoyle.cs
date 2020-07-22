@@ -23,8 +23,18 @@ namespace MagicAndAlchemy.NPCs
 			npc.DeathSound = SoundID.NPCDeath2;
 			npc.value = 60f;
 			npc.knockBackResist = 0.5f;
+<<<<<<< HEAD
+			npc.aiStyle = 3;
+			aiType = NPCID.Mummy;
+			animationType = NPCID.Probe;
+			/*
+			banner = Item.NPCtoBanner(NPCID.Zombie);
+			bannerItem = Item.BannerToItem(banner);
+			*/
+=======
 			npc.aiStyle = -1; // unique AI style
 			//animationType = NPCID.SlimeSpiked;
+>>>>>>> f3104b13af378d9bc606085ffdc50804547b379e
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
