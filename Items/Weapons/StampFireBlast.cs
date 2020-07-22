@@ -32,5 +32,16 @@ namespace MagicAndAlchemy.Items.Weapons
             item.shoot = ProjectileType<Projectiles.FireBlast>();
             item.shootSpeed = 10f;
         }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.GoldOre, 30);
+            recipe.AddIngredient(ItemID.Ruby, 10);
+            recipe.AddIngredient(ItemID.Diamond, 15);
+            recipe.AddTile(mod, "AlchemicalAltar");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }
