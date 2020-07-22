@@ -31,7 +31,7 @@ namespace MagicAndAlchemy
 			if (mouseTextIndex != -1)
 			{
 				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-					"YourMod: A Description",
+					"MagicAndAlchemy: Alchemy crafting interface",
 					delegate
 					{
 						_menuBar.Draw(Main.spriteBatch, new GameTime());
