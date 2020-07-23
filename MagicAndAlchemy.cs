@@ -11,6 +11,7 @@ namespace MagicAndAlchemy
 	{
 		internal MenuBar MenuBar;
 		private UserInterface alchemyInterface;
+		public UserInterface alchemistNPCUserInterface;
 		private GameTime _lastUpdateUiGameTime;
 
 		public override void Load()
@@ -19,6 +20,7 @@ namespace MagicAndAlchemy
 				MenuBar = new MenuBar();
 				MenuBar.Activate();
 				alchemyInterface = new UserInterface();
+				alchemistNPCUserInterface = new UserInterface();
 				alchemyInterface.SetState(MenuBar);
 			}
 		}

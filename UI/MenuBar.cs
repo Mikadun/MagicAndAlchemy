@@ -8,12 +8,16 @@ namespace MagicAndAlchemy.UI
     class MenuBar : UIState
     {
         public PlayButton playButton;
-        public UIItemSlot itemSlot;
+        public ItemSlotWrapper itemSlot;
 
         public override void OnInitialize()
         {
             playButton = new PlayButton();
-            itemSlot = new UIItemSlot(new Vector2(Main.screenWidth + 50, Main.screenHeight + 50) / 2f, null, null, null, null, null, false, 1);
+            itemSlot = new ItemSlotWrapper(ItemSlot.Context.ChestItem, 1f) {
+                Left = { Pixels = 50 },
+                Top = { Pixels = 270 },
+                ValidItemFunc = item => true
+            };
             //Append(playButton);
             Append(itemSlot);
         }
