@@ -28,7 +28,7 @@ namespace MagicAndAlchemy.Items.Accessories
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
-			// 50% melee and ranged damage increase
+			// change this!
 			player.meleeDamage += 0.5f;
 		}
     }
