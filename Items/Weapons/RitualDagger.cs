@@ -49,9 +49,9 @@ namespace MagicAndAlchemy.Items.Weapons
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit) {
 			if (player.HasItem(ItemID.Bottle)) {
-                // Remove bottles from players inventory
+                // Remove one bottle from player's inventory on each hit
                 int bottleIndex = player.FindItem(ItemID.Bottle);
-                // Item bottle = player.inventory[bottle].;
+                player.ConsumeItem(ItemID.Bottle);
                 player.QuickSpawnItem(ItemType<BloodFlask>());
             }
 		}
