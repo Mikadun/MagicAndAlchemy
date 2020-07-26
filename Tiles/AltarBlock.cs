@@ -21,7 +21,7 @@ namespace MagicAndAlchemy.Tiles
             dustType = DustType<Dusts.Sparkle>();
             drop = ItemType<Items.Placeable.AltarBlock>();
             AddMapEntry(new Color(200, 200, 200));
-            TileObjectData.addTile(Type);
+            //TileObjectData.addTile(Type);
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num) 
