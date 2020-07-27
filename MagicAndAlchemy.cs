@@ -34,26 +34,19 @@ namespace MagicAndAlchemy
 		}
 
 		public override void AddRecipes() {
-			recipes = new Recipes();
+			recipes = new Recipes(alchemicalCraftingUI.maxIngredientCount);
 			alchemicalCraftingUI.craftButton.OnClick += CraftPotion;
 		}
 
 		public void CraftPotion(UIMouseEvent evt,  UIElement listeningElement) {
-            Main.NewText(Main.inventoryBack9Texture.Width.ToString() + " " + Main.inventoryBack9Texture.Height.ToString());
-
-			int bottle = alchemicalCraftingUI.bottleSlot.Item.type;
-			int catalyst = alchemicalCraftingUI.catalystSlot.Item.type;
 			int[] ingredients = new int[alchemicalCraftingUI.maxIngredientCount];
 			for (int i = 0; i < ingredients.Length; i++) {
 				ingredients[i] = alchemicalCraftingUI.ingredientSlots[i].Item.type;
-				Main.NewText(ingredients[i].ToString());
 			}
 			Array.Sort(ingredients);
 			
-			bool result = recipes.CraftPotion(bottle, catalyst, ingredients);
+			bool result = recipes.CraftPotion(ingredients);
 			if (result) {
-				alchemicalCraftingUI.bottleSlot.Item.stack--;
-				alchemicalCraftingUI.catalystSlot.Item.stack--;
 				for (int i = 0; i < ingredients.Length; i++) {
 					alchemicalCraftingUI.ingredientSlots[i].Item.stack--;
 				}

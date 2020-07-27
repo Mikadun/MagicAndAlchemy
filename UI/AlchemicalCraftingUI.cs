@@ -17,9 +17,7 @@ namespace MagicAndAlchemy.UI
     {
         public UIImageButton craftButton;
         public ItemSlotWrapper[] ingredientSlots;
-        public int maxIngredientCount = 3;
-        public ItemSlotWrapper bottleSlot;
-        public ItemSlotWrapper catalystSlot;
+        public int maxIngredientCount = 5;
         public DragableUIPanel mainPanel;
         public UIImage cauldronImage;
         public Vector2 size;
@@ -27,12 +25,11 @@ namespace MagicAndAlchemy.UI
 
         public override void OnInitialize()
         {
-            size = new Vector2(400f, 200f);
+            size = new Vector2(400f, 150f);
             pos = new Vector2(250f, 200f);
 
             float itemSlotHeight = Main.inventoryBack9Texture.Height;
-            int rows = 2;
-            float offsetY = (size.Y - rows * itemSlotHeight) / (rows + 1);
+            float offsetY = 20f;
 
             float itemSlotWidth = Main.inventoryBack9Texture.Width;
             float offsetX = (size.X - maxIngredientCount * itemSlotWidth) / (maxIngredientCount + 1);
@@ -47,7 +44,7 @@ namespace MagicAndAlchemy.UI
             mainPanel.PaddingBottom = 1;
             mainPanel.PaddingTop = 0;
             int darkColor = 40;
-            mainPanel.BackgroundColor = new Color(darkColor, darkColor, darkColor, 180);
+            mainPanel.BackgroundColor = new Color(darkColor + 15, darkColor, darkColor + 15, 180);
             
             Texture2D CauldronImageTexture = GetTexture("MagicAndAlchemy/UI/CauldronImage");
             cauldronImage = new UIImage(CauldronImageTexture);
@@ -56,7 +53,8 @@ namespace MagicAndAlchemy.UI
             mainPanel.Append(cauldronImage);
 
             ingredientSlots = new ItemSlotWrapper[maxIngredientCount];
-            for (int i = 0; i < maxIngredientCount; i++) {
+            int i = 0;
+            for (i = 0; i < maxIngredientCount; i++) {
                 float x = (offsetX + itemSlotWidth) * i + offsetX;
                 ItemSlotWrapper ingredientSlot = new ItemSlotWrapper(ItemSlot.Context.ChestItem, 1f);
                 ingredientSlot.Left.Set(x, 0f);
@@ -66,22 +64,10 @@ namespace MagicAndAlchemy.UI
                 mainPanel.Append(ingredientSlot);
             }
 
-            bottleSlot = new ItemSlotWrapper(ItemSlot.Context.ChestItem, 1f);
-            bottleSlot.Left.Set(offsetX, 0f);
-            bottleSlot.Top.Set(itemSlotHeight + 2 * offsetY, 0f);
-            bottleSlot.ValidItemFunc = item => true;
-            mainPanel.Append(bottleSlot);
-
-            catalystSlot = new ItemSlotWrapper(ItemSlot.Context.ChestItem, 1f);
-            catalystSlot.Left.Set(120f, 0f);
-            catalystSlot.Top.Set(itemSlotHeight + 2 * offsetY, 0f);
-            catalystSlot.ValidItemFunc = item => true;
-            mainPanel.Append(catalystSlot);
-
             Texture2D craftButtonTexture = GetTexture("MagicAndAlchemy/UI/ButtonCraftPotion");
             craftButton = new UIImageButton(craftButtonTexture);
-            craftButton.Left.Set(250f, 0f);
-            craftButton.Top.Set(150f, 0f);
+            craftButton.Left.Set(size.X - 74, 0f);
+            craftButton.Top.Set(size.Y - 65, 0f);
             mainPanel.Append(craftButton);
 
             Append(mainPanel);

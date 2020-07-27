@@ -54,8 +54,8 @@ namespace MagicAndAlchemy.Items.Weapons
                 player.ConsumeItem(ItemID.Bottle);
                 player.QuickSpawnItem(ItemType<BloodFlask>());
             }
-		}
 
+		}
 		// Star Wrath/Starfury style weapon. Spawn projectiles from sky that aim towards mouse.
 		// See Source code for Star Wrath projectile to see how it passes through tiles.
 		/*	The following changes to SetDefaults 

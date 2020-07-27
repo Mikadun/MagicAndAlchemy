@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -10,16 +11,18 @@ namespace MagicAndAlchemy
 {
 	public class Recipes
 	{
-		List<PotionRecipe> potionRecipes;
+		private List<PotionRecipe> potionRecipes;
+		private int maxPotionIngredientCount;
 
-		public Recipes() {
+		public Recipes(int _maxPotionIngredient) {
+			maxPotionIngredientCount = _maxPotionIngredient;
 			potionRecipes = new List<PotionRecipe>();
-			AddPotionRecipe(ItemType<BloodFlask>(), new int[] {ItemID.Mushroom, ItemID.Daybloom, ItemID.Blinkroot}, ItemID.RegenerationPotion);
+			AddPotionRecipe(new int[] {ItemID.Mushroom, ItemID.Daybloom, ItemID.Blinkroot, ItemType<BloodFlask>()}, ItemID.RegenerationPotion);
 		}
 
-		public bool CraftPotion(int bottle, int catalyst, int[] ingredients) {
+		public bool CraftPotion(int[] ingredients) {
 			for (int i = 0; i < potionRecipes.Count; i++) {
-				if (potionRecipes[i].isSame(bottle, catalyst, ingredients)) {
+				if (potionRecipes[i].isSame(ingredients)) {
 					PotionRecipe p = potionRecipes[i];
 					Main.LocalPlayer.QuickSpawnItem(p.resultId, p.stack);
 					return true;
@@ -28,29 +31,37 @@ namespace MagicAndAlchemy
 			return false;
 		}
 
-		public void AddPotionRecipe(int catalyst, int[] ingredients, int resultId, int stack = 1, int bottle = ItemID.Bottle) {
-			potionRecipes.Add(new PotionRecipe(bottle, catalyst, ingredients, resultId, stack));
+		public void AddPotionRecipe(int[] ingredients, int resultId, int stack = 1) {
+			if (ingredients.Length < maxPotionIngredientCount) {
+				int[] newIngredients = new int[maxPotionIngredientCount];
+				for (int i = 0; i < maxPotionIngredientCount; i++) {
+					if (i < ingredients.Length) {
+						newIngredients[i] = ingredients[i];
+					} else {
+						newIngredients[i] = 0;
+					}
+				}
+				ingredients = newIngredients;
+			}
+			Array.Sort(ingredients);
+			potionRecipes.Add(new PotionRecipe(ingredients, resultId, stack));
 		}
 	}
 
 
 	public class PotionRecipe {
-		private int bottle;
-		private int catalyst;
 		private int[] ingredients;
 		public int resultId;
 		public int stack;
 
-		public PotionRecipe(int _bottle, int _catalyst, int[] _ingredients, int _resultId, int _stack = 1) {
-			bottle = _bottle;
-			catalyst = _catalyst;
+		public PotionRecipe(int[] _ingredients, int _resultId, int _stack = 1) {
 			ingredients = _ingredients;
 			resultId = _resultId;
 			stack = _stack;
 		}
 
-		public bool isSame(int _bottle, int _catalyst, int[] _ingredients) {
-			return (bottle == _bottle && catalyst == _catalyst && ingredients.SequenceEqual(_ingredients));
+		public bool isSame(int[] _ingredients) {
+			return (ingredients.SequenceEqual(_ingredients));
 		}
 	}
 }
