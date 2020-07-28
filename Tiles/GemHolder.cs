@@ -8,8 +8,9 @@ namespace MagicAndAlchemy.Tiles
 {
     public class GemHolder : ModTile
     {
+
         public override void SetDefaults()
-        {
+        {   
             Main.tileBlockLight[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileCut[Type] = false;
@@ -23,32 +24,75 @@ namespace MagicAndAlchemy.Tiles
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(i * 16, j * 16, 32, 16, ItemType<Items.Placeable.GemHolder>());
+            if (frameX > 17)
+            {
+                int style = frameX / 18;
+                string item;
+                switch(style)
+                {
+                    case 1:
+                        item = "EyeGem";
+                        break;
+
+                    case 2:
+                        item = "AncestorGem";
+                        break;
+
+                    case 3:
+                        item = "BrainGem";
+                        break;
+
+                    case 4:
+                        item = "EaterGem";
+                        break;
+
+                    default:
+                        return;
+                }
+                Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType(item));
+            }
         }
 
         public override bool NewRightClick(int i, int j)
         {
-            int selectedItem = Main.LocalPlayer.selectedItem;
-            selectedItem = Main.LocalPlayer.inventory[selectedItem].type;
-            if (selectedItem == ItemType<Items.EyeGem>())
+            if (Main.tile[i, j].frameX < 18)
             {
-                Main.tile[i, j].frameX = 18;
-                return true;
+                int selectedItem = Main.LocalPlayer.selectedItem;
+                int topY = j - Main.tile[i, j].frameY / 18 % 3;
+                int selectedIdItem = Main.LocalPlayer.inventory[selectedItem].type;
+                if (selectedIdItem == ItemType<Items.EyeGem>())
+                {   
+                    Main.LocalPlayer.inventory[selectedItem].stack--;
+                    Main.tile[i, topY].frameX = 18;
+			        Main.tile[i, topY + 1].frameX = 18;
+			        Main.tile[i, topY + 2].frameX = 18;
+                    return true;              
+                }
+                if (selectedIdItem == ItemType<Items.AncestorGem>())
+                {
+                    Main.LocalPlayer.inventory[selectedItem].stack--;
+                    Main.tile[i, topY].frameX = 36;
+			        Main.tile[i, topY + 1].frameX = 36;
+			        Main.tile[i, topY + 2].frameX = 36;
+                    return true;
+                }
+                if (selectedIdItem == ItemType<Items.BrainGem>())
+                {   
+                    Main.LocalPlayer.inventory[selectedItem].stack--;
+                    Main.tile[i, topY].frameX = 54;
+			        Main.tile[i, topY + 1].frameX = 54;
+			        Main.tile[i, topY + 2].frameX = 54;
+                    return true;
+                }
+                if (selectedIdItem == ItemType<Items.EaterGem>())
+                {
+                    Main.LocalPlayer.inventory[selectedItem].stack--;
+                    Main.tile[i, topY].frameX = 72;
+			        Main.tile[i, topY + 1].frameX = 72;
+			        Main.tile[i, topY + 2].frameX = 72;
+                    return true;
+                } 
             }
-            if (selectedItem == ItemType<Items.AncestorGem>())
-            {
-                Main.tile[i, j].frameX = 36;
-                return true;
-            }
-            if (selectedItem == ItemType<Items.BrainGem>())
-            {
-                Main.tile[i, j].frameX = 54;
-                return true;
-            }
-            if (selectedItem == ItemType<Items.EaterGem>())
-            {
-                Main.tile[i, j].frameX = 72;
-                return true;
-            } 
             return false;
         }
 
