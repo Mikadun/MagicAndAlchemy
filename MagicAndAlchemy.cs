@@ -17,7 +17,8 @@ namespace MagicAndAlchemy
 	public class MagicAndAlchemy : Mod
 	{
 		internal AlchemicalCraftingUI alchemicalCraftingUI;
-		private UserInterface alchemicalCraftingInterface;
+		internal UserInterface alchemicalCraftingInterface;
+		internal Vector2 cauldronPosition;
 		public UserInterface alchemistNPCUserInterface;
 		private GameTime _lastUpdateUiGameTime;
 		public Recipes recipes;
@@ -29,7 +30,7 @@ namespace MagicAndAlchemy
 				alchemicalCraftingUI.Activate();
 				alchemicalCraftingInterface = new UserInterface();
 				alchemistNPCUserInterface = new UserInterface();
-				//alchemicalCraftingInterface.SetState(alchemicalCraftingUI);
+				alchemicalCraftingInterface.SetState(null);
 			}
 		}
 
@@ -57,7 +58,11 @@ namespace MagicAndAlchemy
 		{
 			_lastUpdateUiGameTime = gameTime;
 			if (alchemicalCraftingInterface?.CurrentState != null) {
-				alchemicalCraftingInterface.Update(gameTime);
+				if ((Main.LocalPlayer.Center.ToTileCoordinates().ToVector2() - cauldronPosition).Length() > 10) {
+					alchemicalCraftingInterface.SetState(null);
+				} else {
+					alchemicalCraftingInterface.Update(gameTime);
+				}
 			}
 		}
 
