@@ -46,14 +46,6 @@ namespace MagicAndAlchemy.NPCs
 			npc.knockBackResist = 0.5f;
 			animationType = NPCID.Guide;
 		}
-        /*
-		public override void HitEffect(int hitDirection, double damage) {
-			int num = npc.life > 0 ? 1 : 5;
-			for (int k = 0; k < num; k++) {
-				Dust.NewDust(npc.position, npc.width, npc.height, DustType<Sparkle>());
-			}
-		}
-        */
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money) {
 			for (int k = 0; k < 255; k++) {
@@ -67,7 +59,6 @@ namespace MagicAndAlchemy.NPCs
 		}
 
 		public override string TownNPCName() {
-			// Get random name on NPC
 			WeightedRandom<string> name = new WeightedRandom<string>();
 			name.Add("Harry");
 			name.Add("Arnold");
@@ -79,7 +70,6 @@ namespace MagicAndAlchemy.NPCs
 		}
 
 		public override string GetChat() {
-			// Get random chat line
 			WeightedRandom<string> chat = new WeightedRandom<string>();
 			int wizard = NPC.FindFirstNPC(NPCID.Wizard);
 			if (wizard >= 0) {
@@ -108,13 +98,6 @@ namespace MagicAndAlchemy.NPCs
 			nextSlot++;
 		}
 
-		/*
-		public override void NPCLoot() {
-			Item.NewItem(npc.getRect(), ItemType<Items.Armor.ExampleCostume>());
-		}
-        */
-
-		// Make this Town NPC teleport to the King and/or Queen statue when triggered.
 		public override bool CanGoToStatue(bool toKingStatue) {
 			return true;
 		}
@@ -137,6 +120,5 @@ namespace MagicAndAlchemy.NPCs
 			multiplier = 12f;
 			randomOffset = 2f;
 		}
-
 	}
 }

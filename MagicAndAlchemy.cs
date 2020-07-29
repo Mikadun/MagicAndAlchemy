@@ -29,7 +29,7 @@ namespace MagicAndAlchemy
 				alchemicalCraftingUI.Activate();
 				alchemicalCraftingInterface = new UserInterface();
 				alchemistNPCUserInterface = new UserInterface();
-				alchemicalCraftingInterface.SetState(alchemicalCraftingUI);
+				//alchemicalCraftingInterface.SetState(alchemicalCraftingUI);
 			}
 		}
 

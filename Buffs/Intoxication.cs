@@ -7,8 +7,6 @@ namespace MagicAndAlchemy.Buffs
 {
 	public class Intoxication : ModBuff
 	{
-		private bool firstTime = true;
-
 		public override void SetDefaults() {
 			DisplayName.SetDefault("Intoxication");
 			Description.SetDefault("Health regeneration is slightly lowered");
