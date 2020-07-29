@@ -39,5 +39,16 @@ namespace MagicAndAlchemy.Buffs
 				player.AddBuff(stageOfDebuff + 1, time, false);
             }
 		}
+
+		public static bool PlayerHasIntoxication(Player player) {
+			int minStageOfDebuff = BuffType<Intoxication_1>();
+			int maxStageOfDebuff = BuffType<Intoxication_4>();
+			for (int i = maxStageOfDebuff; i >= minStageOfDebuff; i--) {
+				if (player.HasBuff(i)) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }

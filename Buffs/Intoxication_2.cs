@@ -15,8 +15,8 @@ namespace MagicAndAlchemy.Buffs
 		}
 
 		public override void Update(Player player, ref int buffIndex) {
-            player.lifeRegen -= 2;
-            player.statDefense -= 2;
+            player.lifeRegen -= 8;
+            player.statDefense -= 4;
 		}
 	}
 }
