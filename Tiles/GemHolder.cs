@@ -13,11 +13,12 @@ namespace MagicAndAlchemy.Tiles
         {   
             Main.tileBlockLight[Type] = true;
             Main.tileNoAttach[Type] = true;
-            Main.tileCut[Type] = false;
             Main.tileFrameImportant[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 18, 18, 18 };
-            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.Height = 3;
+            TileObjectData.newTile.CoordinateHeights = new int[] { 18, 16, 16 };
+            //TileObjectData.newTile.StyleHorizontal = true;
+            animationFrameHeight = 56;
             TileObjectData.addTile(Type);
         }
 
@@ -31,19 +32,19 @@ namespace MagicAndAlchemy.Tiles
                 switch(style)
                 {
                     case 1:
-                        item = "EyeGem";
+                        item = "EyeGem"; // green
                         break;
 
                     case 2:
-                        item = "AncestorGem";
+                        item = "AncestorGem"; // blue
                         break;
 
                     case 3:
-                        item = "BrainGem";
+                        item = "BrainGem";  // red
                         break;
 
                     case 4:
-                        item = "EaterGem";
+                        item = "EaterGem"; // purple
                         break;
 
                     default:
@@ -97,11 +98,9 @@ namespace MagicAndAlchemy.Tiles
         }
 
         public override void AnimateTile(ref int frame, ref int frameCounter) {
-			frameCounter++;
-            if (frameCounter > 4) {
+            if (++frameCounter > 24) {
                 frameCounter = 0;
-                frame++;
-                frame %= 6;
+                frame = ++frame % 4;
             }
 		}
     }   
