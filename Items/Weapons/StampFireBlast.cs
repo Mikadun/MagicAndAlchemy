@@ -8,8 +8,7 @@ namespace MagicAndAlchemy.Items.Weapons
 {
     class StampFireBlast : ModItem
     {
-        public override string Texture => "Terraria/Item_" + ItemID.NebulaBlaze;
-		public static Color OverrideColor = new Color(122, 173, 255);
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Stamp Fire Blast");
@@ -31,6 +30,20 @@ namespace MagicAndAlchemy.Items.Weapons
             item.mana = 10;
             item.shoot = ProjectileType<Projectiles.FireBlast>();
             item.shootSpeed = 10f;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            int SnowBlock = ItemID.SnowBlock;
+            for (int i = 0; i < 58; i++)
+            {
+                if (SnowBlock == Main.LocalPlayer.inventory[i].type)
+                {
+                    Main.LocalPlayer.inventory[i].stack--;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public override void AddRecipes()
